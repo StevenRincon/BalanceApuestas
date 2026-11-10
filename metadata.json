@@ -1,0 +1,6 @@
+{
+  "name": "BetVault - Sports Betting Bankroll & Stats Manager",
+  "description": "Aplicación web profesional para gestión de bankroll y estadísticas de apuestas deportivas con Next.js, Mongoose y MongoDB Atlas para despliegue en Vercel.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
