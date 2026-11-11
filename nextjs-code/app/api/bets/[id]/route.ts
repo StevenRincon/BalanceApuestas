@@ -3,7 +3,7 @@ import { connectDB } from '@/lib/mongodb';
 import { Bet } from '@/models/Bet';
 
 interface RouteContext {
-  params: Promise<{ id: string }> | { id: string };
+  params: Promise<{ id: string }>;
 }
 
 // DELETE /api/bets/[id] - Eliminar apuesta
