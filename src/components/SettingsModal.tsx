@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ISettings } from '../types';
 import { X, Sliders, DollarSign } from 'lucide-react';
 
@@ -18,6 +18,14 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   const [bankroll, setBankroll] = useState<string>(settings.initialBankroll.toString());
   const [currency, setCurrency] = useState<string>(settings.currency || 'EUR');
   const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    if (isOpen) {
+      setBankroll(settings.initialBankroll.toString());
+      setCurrency(settings.currency || 'EUR');
+      setError('');
+    }
+  }, [isOpen, settings.initialBankroll, settings.currency]);
 
   if (!isOpen) return null;
 
@@ -61,7 +69,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
         <form onSubmit={handleSubmit} className="mt-4 space-y-4 text-xs">
           <div>
             <label className="block text-slate-300 font-medium mb-1">
-              Capital Inicial de Apuestas (Bankroll Base)
+              Saldo Inicial en la Casa de Apuestas
             </label>
             <div className="relative">
               <input
@@ -77,7 +85,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               </span>
             </div>
             <p className="mt-1.5 text-[11px] text-slate-400">
-              Monto inicial asignado para tu operativa. Utilizado como base para el cálculo del ROI (Return on Investment).
+              Este es el saldo inicial; se mantiene como base. El balance actual cambia automáticamente al registrar cada apuesta como ganada, perdida o nula.
             </p>
           </div>
 
@@ -99,7 +107,8 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
           <div className="rounded-lg bg-slate-800/50 border border-slate-800 p-3 text-slate-400 text-[11px] space-y-1">
             <div className="font-semibold text-slate-300">Fórmulas aplicadas:</div>
-            <div>• <strong className="text-slate-200">Balance Actual:</strong> Capital Inicial + Ganancias Apuestas - Gastos</div>
+            <div>• <strong className="text-slate-200">Balance Actual:</strong> Saldo Inicial + Ganancias netas de apuestas - Gastos</div>
+            <div>• Apuesta ganada: Monto apostado × (Cuota - 1). Ejemplo: $50.000 a cuota 1,5 suma $25.000.</div>
             <div>• <strong className="text-slate-200">ROI:</strong> (Beneficio Neto Global / Capital Inicial) × 100</div>
           </div>
 

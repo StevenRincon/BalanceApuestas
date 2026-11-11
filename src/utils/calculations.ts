@@ -30,7 +30,10 @@ export function calculateStats(
   const resolvedBetsCount = wonCount + lostCount + voidCount;
 
   // Beneficio neto solo de apuestas
-  const bettingProfitLoss = bets.reduce((acc, curr) => acc + (Number(curr.netProfit) || 0), 0);
+  const bettingProfitLoss = bets.reduce(
+    (acc, curr) => acc + calculateNetProfit(curr.amount, curr.odds, curr.status),
+    0
+  );
 
   // Total apostado en apuestas resueltas (para cálculo de Yield financiero deportivo)
   const totalStaked = [...wonBets, ...lostBets].reduce(

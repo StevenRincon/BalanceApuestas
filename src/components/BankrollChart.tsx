@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { IBet, IExpense } from '../types';
-import { formatCurrency } from '../utils/calculations';
+import { calculateNetProfit, formatCurrency } from '../utils/calculations';
 
 interface BankrollChartProps {
   bets: IBet[];
@@ -47,7 +47,7 @@ export const BankrollChart: React.FC<BankrollChartProps> = ({
           date: b.date,
           label: `${b.sport}: ${b.event}`,
           type: 'bet',
-          delta: b.netProfit,
+          delta: calculateNetProfit(b.amount, b.odds, b.status),
         });
       });
 
